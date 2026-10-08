@@ -1,43 +1,57 @@
 # CITYFLOW V1 Backend Status
 
+## Build status
+CITYFLOW V1 continues development without requiring the final production integrations to be present.
+
 ## Completed
 - Dedicated CITYFLOW Supabase project: ACTIVE_HEALTHY
-- Migrations 001–006 applied
-- Transactional booking quote/create RPCs
-- Transactional commerce order creation with inventory reservation
-- Booking/order idempotency keys
-- Payment event idempotency table
-- Payment state machine and atomic booking/order synchronization
-- Server-only payment RPCs
-- Verified-transaction review RPC
-- Transactional foreign-key indexes
-- Edge Functions deployed: feed, search, listing-create, booking-quote, booking-create, order-create, payment-intent v2, review-create
-- Edge Functions use Supabase publishable/secret key environment variables
+- Core PostgreSQL marketplace schema and transactional foundation
+- RLS and security hardening
+- Booking quote/create RPCs
+- Commerce order creation with inventory reservation
+- Booking/order idempotency
+- Payment event idempotency and state machine
+- Server-only financial RPCs
+- Verified-transaction review flow
+- Transactional indexes
+- Media upload, confirmation, moderation and signed delivery flow
+- Edge Functions: feed, search, listing-create, booking-quote, booking-create, order-create, payment-intent, review-create and media functions
+- Core marketplace categories seeded
+- Security Advisor: 0 lints
 
-## Pending production gates
+## Deferred — final integration only
+These items are intentionally removed from the current build path and will be added as the final project step:
 - CMI merchant affiliation and credentials
-- CMI adapter boundary + contract tests (completed; cryptographic provider mapping intentionally gated)
 - Official CMI integration kit/test endpoint
-- Exact CMI cryptographic request/response signing implementation
-- CMI checkout redirect and webhook deployment
-- Refund/cancellation provider adapter
-- Full live integration test suite with authenticated test accounts (test harness/plan prepared; execution awaits seeded test accounts)
-- Production frontend/domain/monitoring rollout
+- Exact CMI cryptographic checkout/webhook implementation
+- Provider refund/cancellation adapter
+- Authenticated live E2E campaign with populated test accounts
+- Production domain, monitoring and final release validation
+- Final load/resilience campaign
+
+These are deferred integrations, not reasons to stop building CITYFLOW V1.
 
 ## Security decision
-`payment-webhook` is intentionally NOT deployed until provider-specific cryptographic verification exists. A webhook that merely checks for a signature header is not acceptable for production.
+The payment webhook remains intentionally undeployed until the official provider cryptographic verification is available. No fake signature validation or simulated production payment confirmation will be introduced.
 
-## Known Supabase advisor items
-- `public.spatial_ref_sys` remains an extension-owned PostGIS table with RLS disabled. Do not alter it blindly.
-- PostGIS/vector extension placement and extension-owned SECURITY DEFINER warnings remain for separate hardening review.
-- Sensitive server-controlled RLS tables intentionally have no client policies.
-
-## Critical rule
-ARBIPOOL is not used by CITYFLOW.
+## Current live state
+- Supabase project: ACTIVE_HEALTHY
+- Region: eu-west-3
+- PostgreSQL: 17.6
+- Public tables: 61
+- RLS: 61/61 application tables
+- Public RLS policies: 117+
+- Security Advisor: 0 lints
+- Auth users: 0
+- Published listings: 0
+- Approved videos: 0
 
 ## V1.5 integration update
-- Core marketplace categories seeded: Immobilier, Hébergement, Restaurants, Commerces, Services, Mobilité, Loisirs.
-- Feed Edge Function v3 now returns category, location and business display context.
-- Search Edge Function v3 now returns category, location and business display context and is GET-based for frontend discovery.
-- Security advisor currently returns no lints.
-- CMI webhook/checkout gate remains unchanged and production-safe.
+- Feed returns category, location and business display context.
+- Search returns category, location and business display context.
+- Anonymous discovery policies are separated from authenticated/admin policies.
+- Media storage remains private with signed URLs.
+- Payment remains server-authoritative.
+
+## Release rule
+The project can continue to be built and finalized without the deferred integrations above. They are the final integration/release phase, not the current development gate.
