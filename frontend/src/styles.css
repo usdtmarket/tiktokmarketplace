@@ -13,3 +13,12 @@
 .transactionPanel{margin-top:18px}.transactionList{display:grid;gap:7px}.transactionRow{display:grid;grid-template-columns:1fr auto auto;gap:14px;align-items:center;padding:12px;border:1px solid #20364f;border-radius:10px;background:#0d1e30}.transactionRow b,.transactionRow small{display:block}.transactionRow b{font-size:12px}.transactionRow small{font-size:9px;color:#70879e;margin-top:4px}.transactionRow>span{font-size:9px;padding:5px 8px;border-radius:20px;background:#132e48;color:#86b7ec}.transactionRow strong{font-size:12px;white-space:nowrap}@media(max-width:700px){.transactionRow{grid-template-columns:1fr auto}.transactionRow strong{grid-column:2;grid-row:1}.transactionRow>span{grid-column:1;grid-row:2;width:max-content}}
 
 .transactionButton{width:100%;text-align:left;color:inherit;font:inherit;cursor:pointer}.transactionButton:hover{border-color:#356b9e;transform:translateY(-1px)}.transactionDetail{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:8px 0 16px}.transactionDetail>div{padding:12px;border:1px solid #20364f;border-radius:9px;background:#0d1e30}.transactionDetail span,.transactionDetail b{display:block}.transactionDetail span{font-size:9px;color:#7189a0;text-transform:uppercase;letter-spacing:.08em}.transactionDetail b{font-size:12px;margin-top:5px}
+
+
+/* Admin Center operational queues */
+.adminQueue{padding:16px 0;border-top:1px solid var(--line,#e5e7eb)}
+.adminQueue:first-of-type{border-top:0}
+.adminQueue h3{margin:0 0 10px;font-size:14px;font-weight:750}
+.adminQueue .activity,.dashPanel>.activity{min-width:0}
+.adminQueue .activity span,.dashPanel>.activity span{overflow-wrap:anywhere}
+@media(max-width:760px){.adminQueue .activity,.dashPanel>.activity{align-items:flex-start;gap:10px}.adminQueue .activity small,.dashPanel>.activity small{max-width:110px;text-align:right}}
