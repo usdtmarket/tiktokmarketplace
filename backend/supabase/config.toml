@@ -1,0 +1,20 @@
+project_id = "cityflow-local"
+
+[functions.feed]
+verify_jwt = false
+[functions.search]
+verify_jwt = false
+[functions.listing-create]
+verify_jwt = true
+[functions.booking-quote]
+verify_jwt = true
+[functions.booking-create]
+verify_jwt = true
+[functions.order-create]
+verify_jwt = true
+[functions.payment-intent]
+verify_jwt = true
+[functions.payment-webhook]
+verify_jwt = false
+[functions.review-create]
+verify_jwt = true

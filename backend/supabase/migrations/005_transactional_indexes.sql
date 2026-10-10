@@ -1,0 +1,10 @@
+begin;
+create index if not exists idx_booking_items_booking_id on public.booking_items(booking_id);
+create index if not exists idx_bookings_city_id on public.bookings(city_id);
+create index if not exists idx_order_items_order_id on public.order_items(order_id);
+create index if not exists idx_order_items_listing_id on public.order_items(listing_id);
+create index if not exists idx_orders_city_id on public.orders(city_id);
+create index if not exists idx_orders_delivery_address_id on public.orders(delivery_address_id);
+create index if not exists idx_payments_booking_id on public.payments(booking_id);
+create index if not exists idx_payments_order_id on public.payments(order_id);
+commit;

@@ -1,0 +1,2 @@
+import { clients, body, json, options, requireUser, mapError } from "../_shared/http.ts";
+Deno.serve(async(req)=>{ if(req.method==="OPTIONS")return options(); try{const {userClient,adminClient}=clients(req); const user=await requireUser(req,userClient); const b=await body(req); const {data,error}=await adminClient.rpc("cityflow_booking_quote",{p_customer_id:user.id,p_listing_id:b.listing_id,p_start_at:b.start_at,p_end_at:b.end_at,p_quantity:b.quantity??1,p_guests_count:b.guests_count??null}); if(error)throw error; return json(data);}catch(e){return mapError(e);}});
