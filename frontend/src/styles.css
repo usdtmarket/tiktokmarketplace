@@ -22,3 +22,12 @@
 .adminQueue .activity,.dashPanel>.activity{min-width:0}
 .adminQueue .activity span,.dashPanel>.activity span{overflow-wrap:anywhere}
 @media(max-width:760px){.adminQueue .activity,.dashPanel>.activity{align-items:flex-start;gap:10px}.adminQueue .activity small,.dashPanel>.activity small{max-width:110px;text-align:right}}
+
+
+.adminActivity{align-items:flex-start}
+.adminItemBody{min-width:0;flex:1;display:flex;flex-direction:column;gap:5px}
+.adminItemBody>span{overflow-wrap:anywhere}
+.adminActionButtons{display:flex;flex-wrap:wrap;gap:6px;margin-top:7px}
+.adminActionButtons .mini{display:inline-flex;align-items:center;gap:5px}
+.adminActionButtons .danger{color:var(--danger,#b42318)}
+@media(max-width:760px){.adminActivity{flex-wrap:wrap}.adminActivity>small{width:100%;max-width:none;text-align:left}.adminActionButtons{width:100%}}
