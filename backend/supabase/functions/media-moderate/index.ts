@@ -63,40 +63,19 @@ Deno.serve(async (req) => {
     if (decision === "reject" && reason.length < 8) {
       return j({ error: { code: "REASON_REQUIRED_MIN_8_CHARS" } }, 422);
     }
-    const { data: beforeUpload } = await admin
-      .from("media_uploads")
-      .select("id,owner_user_id,listing_id,media_type,status")
-      .eq("id", uploadId)
-      .maybeSingle();
-
-    const { data, error } = await admin.rpc("cityflow_moderate_media", {
+    const actorType = activeRoles.some((x: { role: string }) => ["admin", "super_admin"].includes(x.role))
+      ? "admin"
+      : "moderator";
+    const { data, error } = await admin.rpc("cityflow_moderate_media_audited", {
       p_upload_id: uploadId,
       p_decision: decision,
       p_quality_score: body.quality_score ?? null,
       p_content_score: body.content_score ?? null,
       p_reason: reason || null,
+      p_actor_id: authData.user.id,
+      p_actor_type: actorType,
     });
     if (error) return j({ error: { code: "MODERATION_FAILED" } }, 400);
-
-    const { data: afterUpload } = await admin
-      .from("media_uploads")
-      .select("id,owner_user_id,listing_id,media_type,status")
-      .eq("id", uploadId)
-      .maybeSingle();
-    const actorType = activeRoles.some((x: { role: string }) => ["admin", "super_admin"].includes(x.role))
-      ? "admin"
-      : "moderator";
-    const { error: auditError } = await admin.from("audit_logs").insert({
-      actor_type: actorType,
-      actor_id: authData.user.id,
-      action: `media.${decision}`,
-      entity_type: "media_upload",
-      entity_id: uploadId,
-      before_data: { record: beforeUpload, reason: reason || null },
-      after_data: { record: afterUpload, result: data, reason: reason || null },
-      request_id: "admin-center",
-    });
-    if (auditError) return j({ error: { code: "AUDIT_LOG_FAILED_AFTER_MODERATION" } }, 500);
 
     return j(data);
   } catch (e) {
