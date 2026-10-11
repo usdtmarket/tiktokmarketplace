@@ -17,3 +17,16 @@ The live database contains these functions, but their complete definitions have 
 ## Validation limitation
 
 The current project has no auth users or transaction records, so end-to-end admin actions and queue workflows cannot yet be exercised with real test entities. Do not create production-like test data without an isolated test plan.
+
+
+## Release gate — 2026-10-11
+
+Before promoting this branch:
+
+1. Recover the exact live SQL definitions for admin overview/action and commit them as a reproducible migration with explicit function privileges.
+2. Compare all live schema objects against the versioned migrations; do not infer that the source tree reproduces the live database.
+3. Create isolated test identities and fixtures only after defining cleanup and data-isolation rules. Exercise customer, business member, moderator, admin, and super-admin permission boundaries.
+4. Run frontend typecheck/build and the security test matrix; record actual command output and commit SHA with the release evidence.
+5. Keep CMI checkout/webhook disabled until the official merchant kit and provider credentials are available and signature verification can be tested against the provider sandbox.
+
+Current known constraints: the production project has no auth users or booking/order rows, so transaction and admin end-to-end tests cannot yet be considered passed. Security Advisor reported zero lints in the last check, which is not a substitute for functional tests.
