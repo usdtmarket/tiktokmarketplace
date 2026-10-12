@@ -36,11 +36,11 @@ jobs:
           node-version: 22
           registry-url: https://registry.npmjs.org
       - name: Inspect package manifest
-        run: node -e "const p=require('./package.json'); console.log(JSON.stringify({name:p.name,scripts:p.scripts,dependencies:p.dependencies,devDependencies:p.devDependencies},null,2))"
-      - name: Install dependencies
         run: |
-          npm config get registry
-          npm install --no-audit --no-fund --verbose
+          cat package.json
+          node -e "JSON.parse(require('fs').readFileSync('./package.json','utf8')); console.log('package.json: valid JSON')"
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund --verbose
       - name: Type-check
         run: npx tsc --noEmit
       - name: Build production bundle
