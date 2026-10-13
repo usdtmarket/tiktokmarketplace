@@ -2,7 +2,7 @@ name: CITYFLOW frontend validation
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, cityflow-v1-sync]
     paths:
       - "frontend/**"
       - ".github/workflows/frontend-validation.yml"
