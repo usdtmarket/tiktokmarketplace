@@ -1,0 +1,15 @@
+begin;
+revoke all on public.payment_events from anon, authenticated;
+revoke execute on function public.audit_row_change() from public, anon, authenticated;
+revoke execute on function public.can_manage_business(uuid) from public, anon, authenticated;
+revoke execute on function public.can_manage_listing(uuid) from public, anon, authenticated;
+revoke execute on function public.can_view_booking(uuid) from public, anon, authenticated;
+revoke execute on function public.can_view_order(uuid) from public, anon, authenticated;
+revoke execute on function public.handle_new_auth_user() from public, anon, authenticated;
+revoke execute on function public.is_admin() from public, anon, authenticated;
+revoke execute on function public.is_business_member(uuid) from public, anon, authenticated;
+revoke execute on function public.prevent_protected_field_changes() from public, anon, authenticated;
+revoke execute on function public.st_estimatedextent(text,text) from public, anon, authenticated;
+revoke execute on function public.st_estimatedextent(text,text,text) from public, anon, authenticated;
+revoke execute on function public.st_estimatedextent(text,text,text,boolean) from public, anon, authenticated;
+commit;
